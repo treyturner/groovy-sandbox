@@ -1,0 +1,39 @@
+ext {
+    groovyVersion = "3.0.6"
+}
+
+allprojects {
+    apply plugin: "idea"
+
+    group "info.treyturner"
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: "groovy"
+    apply plugin: "codenarc"
+
+    dependencies {
+        implementation "org.codehaus.groovy:groovy:$groovyVersion"
+        implementation "org.slf4j:slf4j-api:1.7.30"
+        implementation "ch.qos.logback:logback-classic:1.2.3"
+    }
+
+    codenarc {
+        toolVersion = "2.0.0"
+        configFile = new File("$rootDir/codenarc.groovy")
+    }
+
+    tasks.withType(CodeNarc) {
+        group = JavaBasePlugin.VERIFICATION_GROUP
+    }
+
+    task "codenarc" {
+        group = JavaBasePlugin.VERIFICATION_GROUP
+        dependsOn codenarcMain, codenarcTest
+    }
+}

@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'org.codehaus.gpars:gpars:1.2.1'
+}
