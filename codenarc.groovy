@@ -39,6 +39,7 @@ ruleset {
     HardCodedWindowsRootDirectory
     IntegerGetInteger
     MultipleUnaryOperators
+    ParameterAssignmentInFilterClosure
     RandomDoubleCoercedToZero
     RemoveAllOnSelf
     ReturnFromFinallyBlock
@@ -154,7 +155,9 @@ ruleset {
     // rulesets/dry.xml
     DuplicateListLiteral
     DuplicateMapLiteral
-    DuplicateNumberLiteral
+    DuplicateNumberLiteral {
+        duplicateNumberMinimumValue = 3
+    }
     DuplicateStringLiteral {
         duplicateStringMinimumLength = 3
     }
@@ -205,20 +208,27 @@ ruleset {
     LineLength
     MissingBlankLineAfterImports
     MissingBlankLineAfterPackage
+    MissingBlankLineBeforeAnnotatedField
     SpaceAfterCatch
     SpaceAfterClosingBrace
     SpaceAfterComma
     SpaceAfterFor
     SpaceAfterIf
+    SpaceAfterMethodCallName
+    SpaceAfterMethodDeclarationName
+    SpaceAfterNotOperator
     SpaceAfterOpeningBrace
     SpaceAfterSemicolon
     SpaceAfterSwitch
     SpaceAfterWhile
     SpaceAroundClosureArrow
-    SpaceAroundMapEntryColon
+    SpaceAroundMapEntryColon {
+        characterAfterColonRegex = / /
+    }
     SpaceAroundOperator
     SpaceBeforeClosingBrace
     SpaceBeforeOpeningBrace
+    SpaceInsideParentheses
     TrailingWhitespace
 
     // rulesets/generic.xml

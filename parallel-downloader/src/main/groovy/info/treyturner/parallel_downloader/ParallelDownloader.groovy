@@ -19,7 +19,7 @@ class ParallelDownloader {
 
     void download(Map fromTo, int maxConcurrent) {
         if (maxConcurrent > 0) {
-            use (MapPartition) {
+            use(MapPartition) {
                 List maps = fromTo.partition(maxConcurrent)
                 maps.each { downloadMap ->
                     parallelDownload(downloadMap)
@@ -34,10 +34,15 @@ class ParallelDownloader {
         log.debug "\nDownloading: $remoteUrl\n Local Path: $localUrl"
         File file = new File("$localUrl")
         file.parentFile.mkdirs()
-        file.withOutputStream { out ->
-            new URL(remoteUrl).withInputStream { from ->
-                out << from
+        try {
+            file.withOutputStream { out ->
+                new URL(remoteUrl).withInputStream { from ->
+                    out << from
+                }
             }
+        } catch (FileNotFoundException ignored) {
+            log.warn "HTTP 404 (Not Found): $remoteUrl"
+            file.delete()
         }
     }
 
@@ -54,7 +59,7 @@ class ParallelDownloader {
 class MapPartition {
 
     static List partition(Map delegate, int size) {
-        List result = delegate.inject( [ [:] ] ) { ret, elem ->
+        List result = delegate.inject([ [:] ]) { ret, elem ->
             (ret.last() << elem).size() >= size ?
                     ret << [:] : ret
         }

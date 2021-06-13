@@ -1,0 +1,5 @@
+dependencies {
+    implementation "org.codehaus.groovy:groovy-xml:$project.groovyVersion"
+    implementation "org.ccil.cowan.tagsoup:tagsoup:1.2.1"
+    implementation project(":parallel-downloader")
+}

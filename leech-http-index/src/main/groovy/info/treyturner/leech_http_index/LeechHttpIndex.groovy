@@ -40,9 +40,9 @@ class LeechHttpIndex {
     }
 
     static GPathResult getXml(String url) {
-        String rootString = new URL(url).text
+        String str = new URL(url).text
         XmlSlurper xmlSlurper = new XmlSlurper(new Parser())
-        xmlSlurper.parseText(rootString)
+        xmlSlurper.parseText(str)
     }
 
     static List<String> getChildLinks(GPathResult document, String url) {

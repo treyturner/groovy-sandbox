@@ -1,22 +1,29 @@
 ext {
-    groovyVersion = "3.0.6"
+    groovyVersion = "3.0.8"
 }
-
 allprojects {
-    apply plugin: "idea"
+    apply plugin: "codenarc"
+    apply plugin: "groovy"
 
     group "info.treyturner"
 
     repositories {
         mavenCentral()
-        jcenter()
+    }
+
+    configurations {
+        groovy
+
+        codenarc.extendsFrom groovy
+        implementation.extendsFrom groovy
+    }
+
+    dependencies {
+        groovy "org.codehaus.groovy:groovy-all:$groovyVersion"
     }
 }
 
 subprojects {
-    apply plugin: "groovy"
-    apply plugin: "codenarc"
-
     dependencies {
         implementation "org.codehaus.groovy:groovy:$groovyVersion"
         implementation "org.slf4j:slf4j-api:1.7.30"
@@ -24,7 +31,7 @@ subprojects {
     }
 
     codenarc {
-        toolVersion = "2.0.0"
+        toolVersion = "2.1.0"
         configFile = new File("$rootDir/codenarc.groovy")
     }
 
@@ -32,8 +39,8 @@ subprojects {
         group = JavaBasePlugin.VERIFICATION_GROUP
     }
 
-    task "codenarc" {
+    tasks.register("codenarc") {
         group = JavaBasePlugin.VERIFICATION_GROUP
-        dependsOn codenarcMain, codenarcTest
+        dependsOn = [codenarcMain, codenarcTest]
     }
 }
