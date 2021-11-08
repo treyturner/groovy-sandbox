@@ -1,5 +1,5 @@
 ext {
-    groovyVersion = "3.0.8"
+    groovyVersion = "3.0.9"
 }
 
 allprojects {

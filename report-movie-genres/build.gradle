@@ -1,0 +1,12 @@
+ext {
+    httpBuilderNgOkHttpVersion = "1.0.4"
+}
+
+dependencies {
+    implementation("io.github.http-builder-ng:http-builder-ng-okhttp:$httpBuilderNgOkHttpVersion") {
+        exclude group: 'com.burgstaller', module: 'okhttp-digest'
+    }
+    // Replace com.burgstaller:okhttp-digest with the new artifact coordinates
+    implementation "io.github.rburgst:okhttp-digest:1.21"
+    implementation "com.opencsv:opencsv:5.5.2"
+}
