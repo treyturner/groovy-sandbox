@@ -1,18 +1,21 @@
 package info.treyturner.report_movie_genres
 
-
+import static java.util.concurrent.TimeUnit.MINUTES
+import groovy.json.JsonBuilder
 import groovy.util.logging.Slf4j
 import groovyx.net.http.FromServer
 import groovyx.net.http.HttpBuilder
 import groovyx.net.http.OkHttpBuilder
 import okhttp3.OkHttpClient
 
-import static java.util.concurrent.TimeUnit.MINUTES
-
+/**
+ * Class for interacting with Open Movie Database
+ */
 @Slf4j
+@SuppressWarnings('DuplicateStringLiteral')
 class OmdbClient {
 
-    static final String BASE_URI = "http://www.omdbapi.com"
+    static final String BASE_URI = 'http://www.omdbapi.com'
     static final String API_KEY = System.getProperty('omdb.apiKey')
     static final Map BASE_QUERY = [apikey: API_KEY]
 
@@ -37,9 +40,9 @@ class OmdbClient {
      * @param   responseBody    The HTTP response responseBody
      */
     static Map handleSuccess(FromServer fs, Object responseBody) {
-//        log.debug "Called $fs.uri"
-//        log.debug "Response: $fs.statusCode $fs.message"
-//        log.debug "Body:\n" + new JsonBuilder(responseBody).toPrettyString()
+        log.debug "Called $fs.uri"
+        log.debug "Response: $fs.statusCode $fs.message"
+        log.debug 'Body:\n' + new JsonBuilder(responseBody).toPrettyString()
         [status: fs.statusCode, message: fs.message, body: responseBody]
     }
 
@@ -49,9 +52,9 @@ class OmdbClient {
      * @param   responseBody    The HTTP response responseBody
      */
     static Map handleFailure(FromServer fs, Object responseBody) {
-//        log.error "Called $fs.uri"
-//        log.error "Response: $fs.statusCode $fs.message"
-//        log.error "Body:\n" + new JsonBuilder(responseBody).toPrettyString()
+        log.error "Called $fs.uri"
+        log.error "Response: $fs.statusCode $fs.message"
+        log.error 'Body:\n' + new JsonBuilder(responseBody).toPrettyString()
         [status: fs.statusCode, message: fs.message, body: responseBody]
     }
 
